@@ -1,27 +1,23 @@
 # -*- coding: utf-8 -*-
 
-import pickle
+import cPickle
 from datetime import datetime
+from pathlib import Path
 
 
 class FileClient(object):
     file_name = 'crawled_marimedia.pkl'
 
     def __init__(self):
-        self.data_file = open(self.file_name, 'wb+')
-        self.data_file.seek(0)
-        content = self.data_file.read()
+        self._data = {}
 
-        print(content)
-
-        if content:
-            self.data = pickle.load(self.data_file)
-            self.data_file.seek(0)
-            print('init')
-            print(self.data)
-            print('init')
+        data_file = Path(self.file_name)
+        if data_file.exists():
+            with open(self.file_name, 'r') as data_file:
+                self._data = cPickle.load(data_file)
         else:
-            self.data = {}
+            with open(self.file_name, 'w+') as data_file:
+                cPickle.dump(self._data, data_file)
 
     def __enter__(self):
         return self
@@ -33,16 +29,12 @@ class FileClient(object):
         assert 'body' in item
 
     def read(self):
-        return self.data
+        return self._data
 
     def append(self, data):
-        print(self.data)
-        print(data)
         for url in data:
-            self.data[url] = data[url]
+            self._data[url] = data[url]
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.data_file.seek(0)
-        pickle.dump(self.data, self.data_file)
-        self.data_file.seek(0)
-        self.data_file.close()
+        with open(self.file_name, 'w') as data_file:
+            cPickle.dump(self._data, data_file)

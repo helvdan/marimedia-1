@@ -1,16 +1,5 @@
-certifi==2017.7.27.1
-chardet==3.0.4
-cssselect==1.0.1
 dateparser==0.6.0
-idna==2.6
 lazy-property==0.0.1
 lxml==4.0.0
-python-dateutil==2.6.1
-pytz==2017.2
-regex==2017.9.23
 requests==2.18.4
-ruamel.ordereddict==0.4.13
-ruamel.yaml==0.15.34
-six==1.11.0
-tzlocal==1.4
-urllib3==1.22
+pathlib==1.0.1
