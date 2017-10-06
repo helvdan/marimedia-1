@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pickle
 from datetime import datetime
 

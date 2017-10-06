@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from lazy_property import LazyProperty
 from dateparser import parse
 from lxml.html import etree
@@ -12,7 +14,7 @@ class Article(object):
     def body(self):
         return '\n'.join([
             ''.join(p.xpath('.//text()'))
-            for p in self.page.cssslect('.news-text > p')
+            for p in self.page.cssselect('.news-text > p')
         ])
 
 
@@ -24,11 +26,11 @@ class MarimediaRuDescriptor(object):
         return Article(source_code)
 
     @LazyProperty
-    def newsLine(self):
-        return NewsLine()
+    def newsline(self):
+        return Newsline()
 
 
-class NewsLine(object):
+class Newsline(object):
     url = 'http://www.marimedia.ru/news/'
     template = '?p={self.page}'
 
@@ -41,7 +43,7 @@ class NewsLine(object):
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def next(self):
         if self.page > self.stop:
             return StopIteration
 
@@ -54,7 +56,7 @@ class NewsLine(object):
         assert type(self.page) is int, 'start page should be integer'
         assert self.page > 0, 'start page should be greater than 0'
 
-    @classmethod
+    @staticmethod
     def parse(source_code):
         page = etree.HTML(source_code)
 

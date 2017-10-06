@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from file_client import FileClient
 import argparse
 
@@ -35,7 +37,7 @@ class Viewer(object):
 if __name__ == '__main__':
 
     input_args = argparse.ArgumentParser()
-    input_args.add_argument('-view_order', help='view articles ordered by pubdate', choices=['asc', 'desc'])
+    input_args.add_argument('-view_order', help='view articles ordered by pubdate', choices=['asc', 'desc'], required=True)
 
     args = input_args.parse_args()
 

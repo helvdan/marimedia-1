@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from file_client import FileClient
 from marimedia import MarimediaRuDescriptor
 from dateparser import parse
